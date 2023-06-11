@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript Click Event Tutorial</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <script>
+      const myObject = [
+        { name: "Moran", role: "back" },
+        { name: "Alain", role: "front" },
+        { name: "Tony", role: "back" },
+        { name: "Mike", role: "back" },
+        { name: "Abo", role: "back" },
+        { name: "Toni", role: "back" },
+      ];
+
+      function exportWS() {
+        let myFile = "myFile.xlsx";
+        var myWorkSheet = XLSX.utils.json_to_sheet(myObject);
+        var myWorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(myWorkBook, myWorkSheet, "myWorkSheet");
+        XLSX.writeFile(myWorkBook, myFile);
+      }
+
+      function exportWSPlus() {
+        var myFile = "myFilePlus.xlsx";
+        var myWorkSheet = XLSX.utils.json_to_sheet(myObject);
+        XLSX.utils.sheet_add_aoa(myWorkSheet, [["Your Mesage Goes Here"]], {
+          origin: 0,
+        });
+        var merges = (myWorkSheet["!merges"] = [{ s: "A1", e: "D1" }]);
+        var myWorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(myWorkBook, myWorkSheet, "myWorkSheet");
+        XLSX.writeFile(myWorkBook, myFile);
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"
+    ></script>
+    <p class="name">free data</p>
+    <button onclick="exportWS()">open in excel</button>
+    <button type="button" onclick="exportWSPlus()">Export Worksheet+</button>
+    <script src="index.js"></script>
+  </body>
+</html>
